@@ -6,6 +6,32 @@ Changelog
 Version 0 (Beta)
 ----------------
 
+0.10.0 (2020-Feb-16)
+====================
+
+Feature Updates
+---------------
+
+* Switching ``ugettext_lazy`` to ``gettext_lazy`` (this function is
+  being depreciated in Django 4.0).
+* Adding a slug field to ``SubscriptionPlan``, ``PlanCost``, and
+  ``PlanList`` models. This will make it easier to reference specific
+  subscription details in custom views.
+
+0.9.0 (2020-Jan-15)
+===================
+
+Feature Updates
+---------------
+
+* Adding currency support for (the Islamic Republic of) Iran.
+
+Bug Fixes
+---------
+
+* Fixed issues where currency display could not handle non-decimal
+  currencies.
+
 0.8.1 (2019-Dec-25)
 ===================
 

@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 # Convenience references for units for plan recurrence billing
@@ -56,6 +56,13 @@ class SubscriptionPlan(models.Model):
     plan_name = models.CharField(
         help_text=_('the name of the subscription plan'),
         max_length=128,
+    )
+    slug = models.SlugField(
+        blank=True,
+        help_text=_('slug to reference the subscription plan'),
+        max_length=128,
+        null=True,
+        unique=True,
     )
     plan_description = models.CharField(
         blank=True,
@@ -116,6 +123,13 @@ class PlanCost(models.Model):
         help_text=_('the subscription plan for these cost details'),
         on_delete=models.CASCADE,
         related_name='costs',
+    )
+    slug = models.SlugField(
+        blank=True,
+        help_text=_('slug to reference these cost details'),
+        max_length=128,
+        null=True,
+        unique=True,
     )
     recurrence_period = models.PositiveSmallIntegerField(
         default=1,
@@ -320,27 +334,34 @@ class PlanList(models.Model):
     """Model to record details of a display list of SubscriptionPlans."""
     title = models.TextField(
         blank=True,
-        help_text='title to display on the subscription plan list page',
+        help_text=_('title to display on the subscription plan list page'),
         null=True,
+    )
+    slug = models.SlugField(
+        blank=True,
+        help_text=_('slug to reference the subscription plan list'),
+        max_length=128,
+        null=True,
+        unique=True,
     )
     subtitle = models.TextField(
         blank=True,
-        help_text='subtitle to display on the subscription plan list page',
+        help_text=_('subtitle to display on the subscription plan list page'),
         null=True,
     )
     header = models.TextField(
         blank=True,
-        help_text='header text to display on the subscription plan list page',
+        help_text=_('header text to display on the subscription plan list page'),
         null=True,
     )
     footer = models.TextField(
         blank=True,
-        help_text='header text to display on the subscription plan list page',
+        help_text=_('header text to display on the subscription plan list page'),
         null=True,
     )
     active = models.BooleanField(
         default=True,
-        help_text='whether this plan list is active or not.',
+        help_text=_('whether this plan list is active or not.'),
     )
 
     def __str__(self):
@@ -360,7 +381,7 @@ class PlanListDetail(models.Model):
     )
     html_content = models.TextField(
         blank=True,
-        help_text='HTML content to display for plan',
+        help_text=_('HTML content to display for plan'),
         null=True,
     )
     subscribe_button_text = models.CharField(
@@ -371,7 +392,7 @@ class PlanListDetail(models.Model):
     )
     order = models.PositiveIntegerField(
         default=1,
-        help_text='Order to display plan in (lower numbers displayed first)',
+        help_text=_('Order to display plan in (lower numbers displayed first)'),
     )
 
     def __str__(self):
